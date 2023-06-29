@@ -1,10 +1,15 @@
 import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import useLocalStorage from '../hooks/useLocalStorage';
 
+const uuid = (): string => {
+    return Date.now().toString(36) + Math.random().toString(36).substring(2);
+}
 
 const AddExpense: React.FC = () => {
 
+    const [expenses, setExpenses] = useLocalStorage('EXPENSES', []);
     const [formData, setFormData] = useState({
         id: uuid(),
         title: '',
