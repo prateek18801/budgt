@@ -1,4 +1,5 @@
 import Card from 'react-bootstrap/Card';
+import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 
 type props = {
@@ -10,8 +11,8 @@ const ViewExpenseCard: React.FC<props> = ({ title, amount }) => {
     return (
         <Card className='mb-1'>
             <Card.Body className='d-flex align-items-center justify-content-between'>
-                <Card.Subtitle>{title}</Card.Subtitle>
-                <Card.Subtitle>{amount}</Card.Subtitle>
+                <div style={{width: '45%'}}>{title}</div>
+                <div style={{width: '25%'}}><Badge bg='secondary'>₹{amount}</Badge></div>
                 <div>
                     <Button variant='success' className='me-1'>E</Button>
                     <Button variant='danger'>D</Button>
