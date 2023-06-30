@@ -5,6 +5,11 @@ const ViewModifyExpense: React.FC = () => {
 
     const [expenses, setExpenses] = useLocalStorage('EXPENSES', []);
 
+    const deleteItemWithId = (id: string) => {
+        if (!confirm('Delete this item ?')) return;
+        setExpenses(prev => prev.filter(el => el.id !== id));
+    }
+
     return (
         <div className='m-3'>
             <h3 className='mb-4'>Expense History</h3>
@@ -13,6 +18,7 @@ const ViewModifyExpense: React.FC = () => {
                 return <ViewExpenseCard
                     key={expense.id}
                     {...expense}
+                    handleDelete={() => { deleteItemWithId(expense.id) }}
                 />
             })}
 
@@ -21,6 +27,7 @@ const ViewModifyExpense: React.FC = () => {
                 return <ViewExpenseCard
                     key={expense.id}
                     {...expense}
+                    handleDelete={() => { deleteItemWithId(expense.id) }}
                 />
             })}
 
@@ -32,6 +39,7 @@ const ViewModifyExpense: React.FC = () => {
                 return <ViewExpenseCard
                     key={expense.id}
                     {...expense}
+                    handleDelete={() => { deleteItemWithId(expense.id) }}
                 />
             })}
         </div>
