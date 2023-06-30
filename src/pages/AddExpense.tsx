@@ -2,6 +2,15 @@ import { useState } from 'react';
 import ExpenseForm from '../components/ExpenseForm';
 import useLocalStorage from '../hooks/useLocalStorage';
 
+type formDataType = {
+    id: string,
+    title: string,
+    amount: string,
+    category: string,
+    date: string,
+    notes: string
+}
+
 const uuid = (): string => {
     return Date.now().toString(36) + Math.random().toString(36).substring(2);
 }
@@ -10,7 +19,7 @@ const AddExpense: React.FC = () => {
 
     const [expenses, setExpenses] = useLocalStorage('EXPENSES', []);
 
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<formDataType>({
         id: uuid(),
         title: '',
         amount: '',
