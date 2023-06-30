@@ -12,8 +12,7 @@ const ViewModifyExpense: React.FC = () => {
             {expenses.filter(expense => expense.date === new Date().toISOString().substring(0, 10)).map(expense => {
                 return <ViewExpenseCard
                     key={expense.id}
-                    title={expense.title}
-                    amount={expense.amount}
+                    {...expense}
                 />
             })}
 
@@ -21,8 +20,7 @@ const ViewModifyExpense: React.FC = () => {
             {expenses.filter(expense => expense.date === new Date(new Date().setDate(new Date().getDate() - 1)).toISOString().substring(0, 10)).map(expense => {
                 return <ViewExpenseCard
                     key={expense.id}
-                    title={expense.title}
-                    amount={expense.amount}
+                    {...expense}
                 />
             })}
 
@@ -33,8 +31,7 @@ const ViewModifyExpense: React.FC = () => {
             }).map(expense => {
                 return <ViewExpenseCard
                     key={expense.id}
-                    title={expense.title}
-                    amount={expense.amount}
+                    {...expense}
                 />
             })}
         </div>
