@@ -35,6 +35,9 @@ const ExpenseForm: React.FC<props> = ({ title, amount, category, date, notes, ha
                     <option value='bills'>Bills</option>
                     <option value='rent'>Rent</option>
                     <option value='health'>Health</option>
+                    <option value='investment'>Investment</option>
+                    <option value='clothing'>Clothing</option>
+                    <option value='loan'>Loan</option>
                     <option value='others'>Others</option>
                 </Form.Select>
             </Form.Group>
