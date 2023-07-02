@@ -1,0 +1,6 @@
+.app__container {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 6rem auto 5rem;
+    overflow-x: hidden;
+}
