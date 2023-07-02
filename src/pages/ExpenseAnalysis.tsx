@@ -20,16 +20,18 @@ const CHART_COLORS = {
 
 const ExpenseAnalysis: React.FC = () => {
 
-    const [expenses, setExpenses] = useLocalStorage('EXPENSES', []);
+    const [expenses] = useLocalStorage('EXPENSES', []);
 
-    const [month, setMonth] = useState<number>(new Date().getMonth() + 1);
-    const [year, setYear] = useState<number>(new Date().getFullYear());
+    const [month, setMonth] = useState<string>((new Date().getMonth() + 1).toString());
+    const [year, setYear] = useState<string>(new Date().getFullYear().toString());
 
     const categoryAmountSum = {};
     const dateAmountSum = {};
+    const months: Set<string> = new Set();
+    const years: Set<string> = new Set();
 
     expenses.forEach(expense => {
-        if (month === +expense.date.split('-')[1] && year === +expense.date.split('-')[0]) {
+        if (+month === +expense.date.split('-')[1] && year === expense.date.split('-')[0]) {
             // distribute by category for pi chart
             if (expense.category in categoryAmountSum) categoryAmountSum[expense.category] += (+expense.amount);
             else categoryAmountSum[expense.category] = +expense.amount;
@@ -37,11 +39,14 @@ const ExpenseAnalysis: React.FC = () => {
             // distribute by date for line chart
             if (expense.date in dateAmountSum) dateAmountSum[expense.date] += (+expense.amount);
             else dateAmountSum[expense.date] = +expense.amount;
+
         }
+        months.add(expense.date.split('-')[1]);
+        years.add(expense.date.split('-')[0]);
     });
 
     const piChartData = Object.keys(categoryAmountSum).map(key => ({ category: key, amount: categoryAmountSum[key] }));
-    const lineChartData = Object.keys(dateAmountSum).map(key => ({ date: key, amount: dateAmountSum[key] }));
+    const lineChartData = Object.keys(dateAmountSum).sort().map(key => ({ date: key, amount: dateAmountSum[key] }));
 
     // render pi chart labels
     const RADIAN = Math.PI / 180;
@@ -62,17 +67,22 @@ const ExpenseAnalysis: React.FC = () => {
             <Form.Group className='mb-4'>
                 <Row>
                     <Col>
-                        <Form.Select>
-                            <option value='' hidden>Month</option>
+                        <Form.Select onChange={(e) => { setMonth(e.target.value) }}>
+                            {[...months].map(month => (
+                                <option key={month} value={month}>{new Date(new Date().setMonth(+month - 1)).toLocaleString('default', { month: 'long' })}</option>
+                            ))}
                         </Form.Select>
                     </Col>
                     <Col>
-                        <Form.Select>
-                            <option value='' hidden>Year</option>
+                        <Form.Select onChange={(e) => { setYear(e.target.value) }}>
+                            {[...years].map(year => (
+                                <option key={year} value={year}>{year}</option>
+                            ))}
                         </Form.Select>
                     </Col>
                 </Row>
             </Form.Group>
+            
             <h6 className='text-center'>Monthly category wise analysis</h6>
             <PieChart
                 width={350}
@@ -91,6 +101,7 @@ const ExpenseAnalysis: React.FC = () => {
                     ))}
                 </Pie>
             </PieChart>
+
             <h6 className='mb-5 text-center'>Monthly day wise analysis</h6>
             <LineChart
                 width={350}
@@ -103,7 +114,7 @@ const ExpenseAnalysis: React.FC = () => {
                 <XAxis dataKey='date' />
                 <YAxis />
                 <Tooltip />
-                <Line type='monotone' dataKey='amount' stroke='#8884d8' activeDot={{ r: 8 }} />
+                <Line type='monotone' dataKey='amount' stroke='#8884d8' activeDot={{ r: 6 }} />
             </LineChart>
         </div>
     );
