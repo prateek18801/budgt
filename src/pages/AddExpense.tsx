@@ -28,13 +28,6 @@ const AddExpense: React.FC = () => {
         notes: ''
     });
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-        setFormData({
-            ...formData,
-            [e.currentTarget.name]: e.currentTarget.value
-        });
-    }
-
     const handleSubmit = () => {
         // TODO - Indicate required fields
         if (!(formData.title && formData.amount)) return;
@@ -54,12 +47,8 @@ const AddExpense: React.FC = () => {
         <div className='m-3'>
             <h3 className='mb-4'>Add Expense</h3>
             <ExpenseForm
-                title={formData.title}
-                amount={formData.amount}
-                category={formData.category}
-                date={formData.date}
-                notes={formData.notes}
-                handleInputChange={handleInputChange}
+                formData={formData}
+                setFormData={setFormData}
                 handleSubmit={handleSubmit}
             />
         </div>
