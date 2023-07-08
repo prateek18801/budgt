@@ -1,7 +1,7 @@
 import useLocalStorage from '../hooks/useLocalStorage';
 import ViewExpenseCard from '../components/ViewExpenseCard';
 
-const ViewModifyExpense: React.FC = () => {
+const ViewExpense: React.FC = () => {
 
     const [expenses, setExpenses] = useLocalStorage('EXPENSES', []);
 
@@ -46,4 +46,4 @@ const ViewModifyExpense: React.FC = () => {
     );
 }
 
-export default ViewModifyExpense;
+export default ViewExpense;

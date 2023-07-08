@@ -22,9 +22,21 @@ const ViewExpenseCard: React.FC<props> = ({ id, title, amount, category, date, n
             <Card.Body className='d-flex align-items-center justify-content-between'>
                 <div style={{ width: '45%' }}>{title}</div>
                 <div style={{ width: '25%' }}><Badge bg='secondary'>₹{amount}</Badge></div>
-                <div>
-                    <Button variant='success' className='me-1' onClick={() => { navigate('/edit', { state: { id, title, amount, category, date, notes } }) }}>E</Button>
-                    <Button variant='danger' onClick={handleDelete}>D</Button>
+                <div className='d-flex'>
+                    <Button
+                        variant='secondary'
+                        className='me-1 p-1 d-flex align-items-center justify-content-center'
+                        onClick={() => { navigate('/edit', { state: { id, title, amount, category, date, notes } }) }}
+                    >
+                        <span className='material-symbols-rounded'>edit</span>
+                    </Button>
+                    <Button
+                        variant='danger'
+                        className='p-1 d-flex align-items-center justify-content-center'
+                        onClick={handleDelete}
+                    >
+                        <span className='material-symbols-rounded'>delete_forever</span>
+                    </Button>
                 </div>
             </Card.Body>
         </Card>
