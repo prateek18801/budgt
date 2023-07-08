@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
 
 const TopNav: React.FC = () => {
 
@@ -9,9 +8,17 @@ const TopNav: React.FC = () => {
 
     return (
         <Row className='text-center bg-white py-4 d-flex align-items-center'>
-            <Col><Button onClick={() => { navigate(-1) }}>Back</Button></Col>
+            <Col>
+                <div onClick={() => { navigate(-1) }}>
+                    <span className='material-symbols-rounded'>arrow_back_ios</span>
+                </div>
+            </Col>
             <Col><h1>CashTrack</h1></Col>
-            <Col><Button onClick={() => { navigate('/config') }}>Config</Button></Col>
+            <Col>
+                <div onClick={() => { navigate('/config') }}>
+                    <span className='material-symbols-rounded'>settings</span>
+                </div>
+            </Col>
         </Row>
     );
 }
