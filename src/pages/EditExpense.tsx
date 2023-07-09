@@ -14,19 +14,10 @@ type formDataType = {
 
 const EditExpense: React.FC = () => {
 
-    const [expenses, setExpenses] = useLocalStorage('EXPENSES', []);
-
-    const location = useLocation();
     const navigate = useNavigate();
-
+    const location = useLocation();
+    const [expenses, setExpenses] = useLocalStorage('EXPENSES', []);
     const [formData, setFormData] = useState<formDataType>(location.state);
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-        setFormData({
-            ...formData,
-            [e.currentTarget.name]: e.currentTarget.value
-        });
-    }
 
     const handleSubmit = () => {
         if (!(formData.title && formData.amount)) return;
@@ -34,17 +25,12 @@ const EditExpense: React.FC = () => {
         navigate(-1);
     }
 
-
     return (
         <div className='m-3'>
             <h3 className='mb-4'>Edit Expense</h3>
             <ExpenseForm
-                title={formData.title}
-                amount={formData.amount}
-                category={formData.category}
-                date={formData.date}
-                notes={formData.notes}
-                handleInputChange={handleInputChange}
+                formData={formData}
+                setFormData={setFormData}
                 handleSubmit={handleSubmit}
             />
         </div>
