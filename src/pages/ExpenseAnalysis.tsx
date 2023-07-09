@@ -2,21 +2,20 @@ import { useState } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
 import PieChart from '../components/PieChart';
 import LineChart from '../components/LineChart';
+import ExpenseDetailCard from '../components/ExpenseDetailCard';
 import useLocalStorage from '../hooks/useLocalStorage';
 
 const ExpenseAnalysis: React.FC = () => {
 
     const [expenses] = useLocalStorage('EXPENSES', []);
-
     const [month, setMonth] = useState<string>((new Date().getMonth() + 1).toString());
     const [year, setYear] = useState<string>(new Date().getFullYear().toString());
 
     const categoryAmountSum = {};
     const dateAmountSum = {};
+    let totalExpenditure = 0;
     const months: Set<string> = new Set();
     const years: Set<string> = new Set();
 
@@ -29,6 +28,8 @@ const ExpenseAnalysis: React.FC = () => {
             // distribute by date for line chart
             if (expense.date in dateAmountSum) dateAmountSum[expense.date] += (+expense.amount);
             else dateAmountSum[expense.date] = +expense.amount;
+
+            totalExpenditure += +expense.amount;
         }
         months.add(expense.date.split('-')[1]);
         years.add(expense.date.split('-')[0]);
@@ -59,12 +60,7 @@ const ExpenseAnalysis: React.FC = () => {
                 </Row>
             </Form.Group>
 
-            <Card className='mb-4'>
-                <Card.Body className='d-flex flex-column'>
-                    <Card.Title>₹ 6490</Card.Title>
-                    <Button variant='link'>More Details</Button>
-                </Card.Body>
-            </Card>
+            <ExpenseDetailCard categoryAmountSum={categoryAmountSum} totalExpenditure={totalExpenditure} />
 
             <h6 className='text-center'>Monthly category wise analysis</h6>
             <PieChart pieChartData={pieChartData} />
