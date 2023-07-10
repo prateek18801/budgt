@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 type props = {
     totalExpenditure: number,
@@ -10,7 +11,9 @@ type props = {
 
 const ExpenseDetailCard: React.FC<props> = ({ totalExpenditure, categoryAmountSum }) => {
 
+    const [config] = useLocalStorage('CASHTRACK_CONFIG', { budget: '10000' });
     const [showDetail, setShowDetail] = useState<boolean>(false);
+
     const CONFIG_EXPENDITURE_LIMIT = 10000;
 
     return (
@@ -22,7 +25,7 @@ const ExpenseDetailCard: React.FC<props> = ({ totalExpenditure, categoryAmountSu
                         <div className='small fw-bold'>Expense</div>
                     </div>
                     <div>
-                        <h4 className='m-0 text-success'>₹ {CONFIG_EXPENDITURE_LIMIT - totalExpenditure}</h4>
+                        <h4 className='m-0 text-success'>₹ {+config.budget - totalExpenditure}</h4>
                         <div className='small fw-bold'>Balance</div>
                     </div>
                 </div>

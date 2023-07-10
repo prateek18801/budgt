@@ -4,6 +4,7 @@ import ExpenseAnalysis from './pages/ExpenseAnalysis';
 import ViewExpense from './pages/ViewExpense';
 import EditExpense from './pages/EditExpense';
 import BottomNav from './components/BottomNav';
+import Settings from './pages/Settings';
 import TopNav from './components/TopNav';
 import './App.css';
 
@@ -17,6 +18,7 @@ const App = () => {
                     <Route path='/view' element={<ViewExpense />} />
                     <Route path='/edit' element={<EditExpense />} />
                     <Route path='/stats' element={<ExpenseAnalysis />} />
+                    <Route path='/config' element={<Settings />} />
                 </Routes>
             </div>
             <BottomNav />
