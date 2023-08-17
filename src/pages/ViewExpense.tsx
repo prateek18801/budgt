@@ -6,8 +6,9 @@ const ViewExpense: React.FC = () => {
     const [expenses, setExpenses] = useLocalStorage('EXPENSES', []);
 
     const deleteItemWithId = (id: string) => {
-        if (!confirm('Delete this item ?')) return;
-        setExpenses(prev => prev.filter(el => el.id !== id));
+        if (confirm('Delete this item ?')) {
+            setExpenses(prev => prev.filter(el => el.id !== id));
+        }
     }
 
     return (
