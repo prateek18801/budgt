@@ -33,7 +33,7 @@ const manifestForPlugin: Partial<VitePWAOptions> = {
             }
         ],
         theme_color: '#0D3934',
-        background_color: '#E0E0E0',
+        background_color: '#0D3934',
         scope: '/',
         start_url: '/',
         orientation: 'portrait'
