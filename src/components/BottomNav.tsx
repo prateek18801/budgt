@@ -1,6 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import monitoring from '../assets/icons/monitoring.png';
+import receipt_long from '../assets/icons/receipt_long.png';
+import add_shopping_cart from '../assets/icons/add_shopping_cart.png';
 
 const BottomNav: React.FC = () => {
 
@@ -10,17 +13,17 @@ const BottomNav: React.FC = () => {
         <Row className='text-center bg-white py-4 align-items-center'>
             <Col>
                 <div onClick={() => { navigate('/view') }}>
-                    <span className='material-symbols-rounded'>receipt_long</span>
+                    <img src={receipt_long} height="25" alt="history" />
                 </div>
             </Col>
             <Col>
                 <div onClick={() => { navigate('/') }}>
-                    <span className='material-symbols-rounded'>add_shopping_cart</span>
+                    <img src={add_shopping_cart} height="25" alt="create" />
                 </div>
             </Col>
             <Col>
                 <div onClick={() => { navigate('/stats') }}>
-                    <span className='material-symbols-rounded'>monitoring</span>
+                    <img src={monitoring} height="25" alt="stats" />
                 </div>
             </Col>
         </Row>
